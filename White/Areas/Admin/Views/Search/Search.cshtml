@@ -1,0 +1,24 @@
+﻿@using HidroProduct;
+@using White.Data;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@model PagedList<Product>
+@{
+    ViewData["title"] = "Arama Sonuçları";
+}
+
+<div class="d-flex justify-content-center py-2">
+    @Html.PagedListPager(Model,
+        page => Url.Action("Search", new { keyword = ViewBag.Keyword, page = page })
+        , ProductExtensions.PagedListOptions)
+</div>
+
+<partial name="_ProductListPartial" model="@Model" />
+
+<div class="d-flex justify-content-center py-2">
+    @Html.PagedListPager(Model,
+        page => Url.Action("Search", new { keyword = ViewBag.Keyword, page = page })
+        , ProductExtensions.PagedListOptions)
+</div>
+

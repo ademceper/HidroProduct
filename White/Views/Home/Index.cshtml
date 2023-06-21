@@ -1,0 +1,7 @@
+﻿
+ @using White.Data;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<partial name="_ProductListPartial" model="@ViewBag.MostViews as IEnumerable<Product>" />

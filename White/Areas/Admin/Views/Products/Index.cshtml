@@ -1,0 +1,83 @@
+﻿@using White.Data;
+@using X.PagedList.Mvc.Core;
+@using HidroProduct;
+@using White.Areas.Admin;
+
+@model X.PagedList.PagedList<Product>
+
+@{
+    ViewData["Title"] = "Ürünler";
+}
+<div class="card">
+    <div class="card-body">
+        <h2>
+            @ViewData["title"]
+        </h2>
+        <div class="d-flex py-2">
+            <a asp-action="Create" class="btn btn-success ms-auto">
+                <i class="bi bi-plus"></i>
+                Yeni Kayıt
+            </a>
+        </div>
+
+        <table class="datatable table table-striped table-bordered">
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_DataTablesPartial" />
+    <script>
+        $(() => {
+            const dt = createDatatable('/admin/products/tabledata', [
+                {
+                    title: 'Görsel',
+                    data: 'image',
+                    render: (r, i, d, t) => {
+                        return `<img src='${d.image}' height="80" width="80" />`;
+                    }
+                },
+                { title: 'Ad', data: 'name' },
+                { title: 'Adet', data: 'piece' },
+                { title: 'kategori', data: 'categoryName' },
+                { title: 'Tedarikçi Adı', data: 'supplierName' },
+                { title: 'Fiyat', data: 'price' },
+                
+               
+              
+
+               
+                {
+                    title: '',
+                    data: 'id',
+                    render: (r, i, d, t) => {
+                        return `
+                                <a class="btn btn-link" href="/admin/products/edit/${d.id}"><i class="fa fa-edit"></i> Düzenle</a>
+                                        <a class="btn btn-link remove-btn" href="/admin/products/delete/${d.id}"><i class="fa fa-trash"></i> Sil</a>
+                                `;
+                    }
+                },
+               
+            ], () => {
+
+                $('.remove-btn').on('click', (evt) => {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'UYARI!',
+                        html: 'Eminmisiniz?',
+                        showCancelButton: true,
+                        cancelButtonText: 'İptal',
+                        confirmButtonText: 'Sil'
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = $(evt.currentTarget).attr('href');
+                        }
+                    })
+                    return false;
+                });
+
+            });
+
+        })
+    </script>
+}

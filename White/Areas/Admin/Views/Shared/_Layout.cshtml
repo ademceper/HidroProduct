@@ -1,0 +1,235 @@
+﻿
+@{ 
+    var catalogSection = new[]
+    {
+        "Categories",  "Products","AppUsers","AppRoles"
+    };
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HidroProduct Admin</title>
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#" >
+                <div class="sidebar-brand-icon rotate-n-15">
+                    
+                </div>
+                <div class="sidebar-brand-text mx-3">HidroProduct</div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                TANIMLAMALAR
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link @(catalogSection.Any(p=> p == ViewContext.RouteData.Values["Controller"]?.ToString()) ? "" : "collapsed")" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>KATALOG</span>
+                </a>
+                <div id="collapseTwo" class="collapse @(catalogSection.Any(p=> p == ViewContext.RouteData.Values["Controller"]?.ToString()) ? "show" : "")" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">İçerik:</h6>
+                        <a class="collapse-item @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Categories" ? "active" : "")" asp-controller="Categories" asp-action="Index">Kategoriler</a>
+                        <a class="collapse-item @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Ürünler</a>
+                       
+                    </div>
+                </div>
+            </li>
+
+
+            <div class="sidebar-heading">
+                ALIŞVERİŞ
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>SİPARİŞ</span>
+                </a>
+                <div id="collapseThree" class="collapse" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Siparişler:</h6>
+                        <a class="collapse-item" href="#">Yeni Siparişler</a>
+                        <a class="collapse-item" href="#">Önceki Siparişler</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>ÜYELER</span>
+                </a>
+                <div id="collapseFour" class="collapse" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                       <a class="collapse-item @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AppUsers" ? "active" : "")" asp-controller="AppUsers" asp-action="Index">üyeler</a>
+                        
+                    </div>
+                </div>
+            </li>
+
+
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+            
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-btn-primary bg-grey topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="mt-3 me-5">
+                           
+                        </li>
+                          <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class=" btn btn-primary mt-2  text-white" style="margin:10px" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fa fa-shop"></i>
+                                Mağazaya Git
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown no-arrow">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-lg-inline text-gray-600 small me-5 ">Hoş geldiniz @User.FindFirst("Name").Value</span>
+
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                           
+                            </div>
+                        </li>
+                        
+
+                    </ul>
+
+                </nav>
+
+                <div class="container-fluid">
+
+                    <h1 class="h3 mb-4 text-gray-800">@ViewData["title"]</h1>
+
+                    @RenderBody()
+
+                </div>
+
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; HidroProduct @DateTime.Today.Year</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Uyarı!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Oturumunuz kapatılacaktır. Devam etmek istiyor musunuz?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İptal</button>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Logout">Devam</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/startbootstrap-sb-admin-2-bs5/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/lib/startbootstrap-sb-admin-2-bs5/js/sb-admin-2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+    @if (TempData["success"] is not null)
+	    {
+        <text>
+        Swal.fire({
+            toast: true,
+            position: 'top',
+            icon: 'success',
+            title: '@TempData["success"]',
+            showConfirmButton : false,
+            timer : 5000
+        })
+        </text>
+	    }
+
+        @if (TempData["error"] is not null)
+	    {
+        <text>
+        Swal.fire({
+            toast: true,
+            position: 'top',
+            icon: 'error',
+            title: '@TempData["error"]',
+            showConfirmButton : false,
+            timer : 5000
+            })
+        </text>
+	    }
+    </script>
+</body>
+</html>

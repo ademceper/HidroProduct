@@ -1,0 +1,24 @@
+﻿<link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+
+
+<script>
+
+    function createDatatable(u, c, e) {
+        return $('.datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/tr.json',
+            },
+            ajax: {
+                url: u,
+                method: 'GET'
+            },
+            columns: c,
+            
+        }).on('draw', e);
+    }
+
+</script>

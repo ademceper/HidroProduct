@@ -1,0 +1,35 @@
+﻿ @using White.Data;
+@using White;
+
+@model IEnumerable<Product>
+  
+
+     <div class="row row-cols-1 row-cols-md-5 g-4">
+    @foreach (var product in Model)
+    {
+        <div class="col ">
+            <div class="card h-100 box ">
+                <a asp-action="Product" asp-route-id="@product.id">
+                    <img class="card-img-top" src="@product.Image" />
+                </a>
+                <div class="card-body shadow">
+                    <div class="card-title h6 text-truncate">
+                        <a asp-action="Product" asp-route-id="@product.id" class="text-decoration-none">
+                            @product.Name
+                        </a>
+                    </div>
+                    <div class="card-text">@product.Price.ToString("c2")</div>
+                    <div class="small">@product.Category!.Name</div>
+                    <div class="card-text">@product.SupplierName</div>
+
+                    <div class="">
+                        <a class="btn btn-outline-primary" asp-route="Product" asp-route-id="@product.id" asp-route-name="@product.Name.ToSafeUrlString()">
+                            <i class="fa fa-search"></i> İncele
+                        </a>
+                </div> 
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

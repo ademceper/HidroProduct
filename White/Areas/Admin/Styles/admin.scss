@@ -1,0 +1,46 @@
+﻿$primary: #f00;
+$success: #8c9c00;
+$danger: #ff0000;
+$border-radius: 1rem;
+
+
+@import 'startbootstrap-sb-admin-2-bs5/scss/sb-admin-2.scss';
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.primary-card {
+    @extend .card;
+    @extend .shadow;
+}
+
+.primary-card .card-header {
+    @extend .bg-primary;
+    @extend .text-white;
+}
+
+
+.category-btn {
+    transition: .3s all linear;
+}
+
+.category-btn:hover {
+    @extend .bg-primary;
+    @extend .text-white;
+}
+
+.category-item a {
+    @extend .border-bottom;
+    @extend .p-2;
+}
+
+.category-item a .children-arrow {
+    transform: rotateZ(0deg);
+    transform-origin: center;
+    transition: .3s all linear;
+}
+
+.category-item a.collapsed .children-arrow {
+    transform: rotateZ(-90deg);
+}

@@ -1,0 +1,35 @@
+﻿@using White.Areas.Admin;
+@using White.Data;
+
+@model Product
+@{
+    ViewData["title"] = Model.Name;
+}
+
+
+<div class="container overflow-hidden text-center">
+    <div class="row gx-5">
+        <div class="col">
+            <div class="p-3"> <img src="@Model.Image" class="img-fluid shadow-sm" style="margin-right:20px" width="440" height="600" /></div>
+        </div>
+        <div class="col">
+            <div class="p-3">
+                <div class="box-shadow">
+                    <div class="col-12 col-md-6">
+
+                        <div class="h3">Ürün Adı:@Model.Name</div>
+                        <div class="h3">Fiyat:@Model.Price.ToString("c2")</div>
+                        <div class="h3">Tedarikçi Adı:@Model.SupplierName</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 col-md-12">
+
+    <article class="h3">Ürün Açıklaması: @Html.Raw( Model.Description)</article>
+
+</div>
+

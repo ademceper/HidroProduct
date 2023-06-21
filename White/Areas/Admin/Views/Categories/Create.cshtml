@@ -1,0 +1,35 @@
+﻿@using White.Data;
+@using White.Areas.Admin;
+
+@model Category
+@{
+    ViewData["title"] = "Kayıt Ekleme";
+    var entityName = "Kategori";
+}
+<div class="card">
+    <div class="card-body">
+        <h2>
+            @ViewData["title"]
+
+        </h2>
+        
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label class="form-label" asp-for="Name"></label>
+                <input class="form-control" asp-for="Name" placeholder="@entityName adını yazınız...">
+                <span asp-validation-for="Name"></span>
+            </div>
+           
+            <hr />
+            <button type="submit" class="btn btn-primary">
+                Kaydet
+            </button>
+            <a class="btn btn-link" asp-action="Index">İptal</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

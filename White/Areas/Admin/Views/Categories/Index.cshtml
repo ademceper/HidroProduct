@@ -1,0 +1,73 @@
+﻿@using White.Data;
+@using White.Areas.Admin;
+
+@model List<Category>
+@{
+    ViewData["title"] = "Kategoriler";
+}
+<div class="card">
+    <div class="card-body">
+        <h2>
+            @ViewData["title"]
+        </h2>
+        <div class="d-flex py-2">
+            <a asp-action="Create" class="btn btn-success ms-auto">
+                <i class="bi bi-plus"></i>
+                Yeni Kayıt
+            </a>
+        </div>
+        <div class="col-12 col-md-9">
+            <table class="datatable table table-striped table-bordered">
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_DataTablesPartial" />
+    <script>
+        $(() => {
+            const createUrl = $('#createButton').attr('href')
+
+            const dt = createDatatable('/admin/categories/tabledata', [
+                { title: 'Ad', data: 'name' },
+                {
+                    title: '',
+                    data: 'id',
+                    render: (r, i, d, t) => {
+                        return `
+        <a class="btn btn-link" href="/admin/categories/edit/${d.id}"><i class="fa fa-edit"></i> Düzenle</a>
+        <a class="btn btn-link remove-btn" href="/admin/categories/delete/${d.id}"><i class="fa fa-trash"></i> Sil</a>
+        `;
+                    }
+                }
+            ], () => {
+
+                $('.remove-btn').on('click', (evt) => {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'UYARI!',
+                        html: 'Eminmisiniz?',
+                        showCancelButton: true,
+                        cancelButtonText: 'İptal',
+                        confirmButtonText: 'Sil'
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = $(evt.currentTarget).attr('href');
+                        }
+                    })
+                    return false;
+                });
+
+            });
+
+            $('.category-btn').on('click', function (e) {
+                const id = $(e.currentTarget).attr('data-id');
+                dt.ajax.url(`/admin/categories/tabledata/${id}`).load();
+                $('#createButton').attr('href', `${createUrl}/${id}`)
+            });
+        })
+    </script>
+}

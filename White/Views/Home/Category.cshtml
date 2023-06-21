@@ -1,0 +1,25 @@
+﻿@using HidroProduct;
+@using White.Areas.Admin;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using White.Data;
+
+
+@model IPagedList<Product>
+@{
+    ViewData["Title"] = ViewBag.Category.Name; 
+
+}
+
+<div class="d-flex justify-content-center py-2">
+    @Html.PagedListPager(Model,
+    page => Url.Action("Category", new { id = ViewBag.Category.Id, page = page })
+
+        , ProductExtensions.PagedListOptions)
+</div>
+<partial name="_ProductListPartial" model="@Model" />
+<div class="d-flex justify-content-center py-2">
+    @Html.PagedListPager(Model,
+        page => Url.Action("Category", new { id = ViewBag.Category.Id, page = page })
+        , ProductExtensions.PagedListOptions)
+</div>

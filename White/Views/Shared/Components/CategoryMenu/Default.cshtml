@@ -1,0 +1,16 @@
+﻿@using White.Areas.Admin;
+@using White.Data;
+@using White;
+
+@model IEnumerable<Category>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Kategori Türleri
+    </a>
+    <ul class="dropdown-menu">
+        @foreach (var category in Model)
+        {
+            <li><a class="dropdown-item" asp-controller="Home" asp-action="Category" asp-route-id="@category.Id">@category.Name.ToSafeUrlString() <span class="badge bg-success text-white">@category.Products.Count.ToString("n0")</span></a></li>
+        }
+    </ul>
+</li>
